@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OuterStruct",
+  "type": "object",
+  "properties": {
+    "inner": {
+      "default": {
+        "some_field": "",
+        "some_int": 0
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/InnerStruct"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "InnerStruct": {
+      "type": "object",
+      "properties": {
+        "some_field": {
+          "type": "string"
+        },
+        "some_int": {
+          "default": 0,
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

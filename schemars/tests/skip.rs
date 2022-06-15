@@ -52,3 +52,22 @@ pub enum MyEnum {
 fn skip_enum_variants() -> TestResult {
     test_default_generated_schema::<MyEnum>("skip_enum_variants")
 }
+
+#[derive(JsonSchema, Default, serde::Serialize)]
+struct OuterStruct {
+    #[serde(default)]
+    pub inner: InnerStruct,
+}
+
+#[derive(JsonSchema, Default, serde::Serialize)]
+struct InnerStruct {
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub some_field: String,
+    #[serde(default)]
+    pub some_int: i32,
+}
+
+#[test]
+fn skip_serde_string_nested() -> TestResult {
+    test_default_generated_schema::<OuterStruct>("skip_serde_string_nested")
+}
